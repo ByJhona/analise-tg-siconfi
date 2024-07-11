@@ -39,7 +39,7 @@ class Relatorio():
             
                 
                 auto_adjust_xlsx_column_width(dif, writer, sheet_name=nome, margin=0)
-               #auto_adjust_xlsx_column_width(teste, writer, sheet_name=nome, margin=0)
+                #auto_adjust_xlsx_column_width(teste, writer, sheet_name=nome, margin=0)
             writer.close
     @staticmethod
     def corir_celulas(val):

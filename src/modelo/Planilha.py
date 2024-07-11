@@ -86,8 +86,6 @@ class Planilha:
     def subtrair_diferenca(tg: DataFrame, siconfi: DataFrame) -> DataFrame:
         # Subtrai os valores da planilha SICONFI dos valores da planilha TG
         diferenca: DataFrame = tg.sub(siconfi, axis=0, fill_value=0)
-
-
         diferenca = diferenca.map(lambda x: "R$ {:,.2f}".format(x))
 
         diferenca.Name = tg.Name
@@ -103,15 +101,7 @@ class Planilha:
 
     @classmethod
     def mesclar_parametros(cls, tg: DataFrame, siconfi: DataFrame) -> DataFrame:
-        # Mescla os parâmetros das planilhas TG e SICONFI
-        info_parametros: DataFrame = pd.DataFrame()
-        k: int = 0
+        planilha_comparada = tg.compare(siconfi, result_names=('TG', 'SICONFI'))
+        planilha_comparada.Name = tg.Name
+        return planilha_comparada
 
-        for i in range(len(tg.columns)):
-            info_parametros.insert(loc=k, column=f"{tg.columns[i]} - TG", value=tg.iloc[:, i])
-            k += 1
-            info_parametros.insert(loc=k, column=f"{siconfi.columns[i]} - SICONFI", value=siconfi.iloc[:, i])
-            k += 1
-
-        info_parametros.Name = tg.Name
-        return info_parametros
